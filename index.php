@@ -3,6 +3,11 @@ $mesAtual = date('m');
 $anoAtual = date('Y');
 ?>
 
+<?php
+include 'conexao.php';
+$result = $conn->query("SELECT DISTINCT mes, ano FROM reagentes ORDER BY ano DESC, mes DESC");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,6 +18,14 @@ $anoAtual = date('Y');
 <body>
   <h2>ABERTURA DE REAGENTES DE BIOQUÍMICA (Caixa de reagentes)</h2>
   <h3 id="mesAnoHeader"><?= date('F Y') ?></h3>
+
+    <label for="menuMeses">Selecionar mês:</label>
+    <select id="menuMeses" onchange="carregarTabela()">
+        <?php while ($row = $result->fetch_assoc()): 
+            $mesNome = date('F', mktime(0, 0, 0, $row['mes'], 10));
+            echo "<option value='{$row['mes']}-{$row['ano']}'>{$mesNome} {$row['ano']}</option>";
+        endwhile; ?>
+    </select>
 
   <table id="tabelaReagentes">
     <thead>

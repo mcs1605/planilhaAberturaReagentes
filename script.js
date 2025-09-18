@@ -52,3 +52,29 @@ function salvarTabela() {
 
   alert('Dados salvos com sucesso!');
 }
+
+function carregarTabela() {
+  const mesAno = document.getElementById('menuMeses').value;
+  const tbody = document.querySelector('#tabelaReagentes tbody');
+  tbody.innerHTML = '';
+
+  fetch(`carregar_tabela.php?mesAno=${mesAno}`)
+    .then(res => res.json())
+    .then(dados => {
+      dados.forEach(linha => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="date" value="${linha.data}"></td>
+          <td>
+            <select>
+              ${reagentes.map(r => `<option value="${r}" ${r === linha.reagente ? 'selected' : ''}>${r}</option>`).join('')}
+            </select>
+          </td>
+          <td><input type="text" maxlength="11" value="${linha.lote}" oninput="formatarLote(this)"></td>
+          <td><input type="date" value="${linha.validade}"></td>
+          <td><input type="text" maxlength="20" value="${linha.responsavel}"></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+}
