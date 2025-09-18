@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>ABERTURA DE REAGENTES DE BIOQUÍMICA (Caixa de reagentes)</h2>
+    <h3 id="mesAnoHeader">Setembro 2025</h3>
+
+    <table id="tabelaReagentes">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Reagente</th>
+                <th>Lote</th>
+                <th>Validade</th>
+                <th>Responsável</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Linhas adicionadas dinamicamente-->
+        </tbody>
+    </table>
+
+    <button onclick="adicionarLinha()"">➕ Adicionar Linha</button>
+
+    <!-- FUNCIONALIDADE POR COLUNA -->
+    <input type="date" value="2025-09-18" />
+
+    <!-- MENU HAMBURGUER -->
+    <select name="" id="">
+        <option>Na++</option>
+        <option>K+</option>
+        <option>CREA</option>
+        <option>URE</option>
+        <option>TBIL</option>
+        <option>Bu/Bc</option>
+        <option>TGO</option>
+        <option>ALTV</option>
+        <option>GLU</option>
+        <option>AMYL</option>
+        <option>CPK</option>
+        <option>CKMB</option>
+        <option>TROP</option>
+    </select>
+
+    <!-- LOTE COM HÍFEN AUTOMÁTICO -->
+    <input type="text" maxlength="11" oninput="formatarLote(this)" />
+    <script>
+        function formatarLote(input) {
+            let valor = input.value.replace(/-/g, '').slice(0,9);
+            input.value = valor.replace(/(.{4})(?=.)/g, '$1-');
+        }
+    </script>
+    
+    <!-- VALIDADE - 1 ano a frente -->
+    <input type="date" value="2026-09-18" />
+
+    <!-- RESPONSÁVEL - até 20 caracteres -->
+    <input type="text" maxlength="20">
+
+    <!-- NOVA TABELA A CADA MÊS -->
+    <script>
+        const hoje = new Date();
+        const mesAtual = hoje.getMonth();
+        const anoAtual = hoje.getFullYear();
+
+        function verificarNovoMes() {
+            const agora = new Date();
+            if (agora.getMonth() !== mesAtual) {
+                criarNovaTabela(agora.getMonth(), agora.getFullYear());
+            }
+        }
+    </script>
+
+</body>
+</html>
