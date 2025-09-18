@@ -14,10 +14,22 @@ $result = $conn->query("SELECT DISTINCT mes, ano FROM reagentes ORDER BY ano DES
   <meta charset="UTF-8">
   <title>Abertura de Reagentes</title>
   <script src="script.js" defer></script>
+  <style>
+    @media print {
+        button {
+        display: none;
+        }
+        select, input {
+            border: none;
+            background: transparent;
+        }
+    }
+  </style>
 </head>
 <body>
   <h2>ABERTURA DE REAGENTES DE BIOQUÍMICA (Caixa de reagentes)</h2>
   <h3 id="mesAnoHeader"><?= date('F Y') ?></h3>
+  <button onclick="window.print()">🖨️ Imprimir</button>
 
     <label for="menuMeses">Selecionar mês:</label>
     <select id="menuMeses" onchange="carregarTabela()">
