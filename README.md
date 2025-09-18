@@ -1,0 +1,2 @@
+# planilhaAberturaReagentes
+Laboratorial
